@@ -33,7 +33,8 @@ const helpers = {
         };
       }
     });
-    return novoArray.filter((filtrar) => filtrar !== undefined);
+
+    return novoArray ? novoArray.filter((filtrar) => filtrar !== undefined) : novoArray;
   },
 };
 

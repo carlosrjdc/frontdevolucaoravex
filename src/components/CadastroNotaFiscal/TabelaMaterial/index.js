@@ -6,10 +6,13 @@ export default function TabelaMaterial({ notaSelecionada }) {
     conteudo: ["codigo", "quantidadeDevolvida"],
   };
 
-  console.log(notaSelecionada?.itens);
+  const novoArrayProduto = notaSelecionada?.itens
+    ? notaSelecionada?.itens.filter((filtrar) => filtrar.motivo !== null)
+    : notaSelecionada?.itens;
+
   return (
     <div>
-      <TabelaPadrao minimo={300} titulo={infoDados} data={notaSelecionada?.itens.filter((filtrar) => filtrar.motivo !== null)} />
+      <TabelaPadrao minimo={300} titulo={infoDados} data={novoArrayProduto} />
     </div>
   );
 }
