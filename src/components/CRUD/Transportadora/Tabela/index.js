@@ -52,7 +52,7 @@ export default function TabelaTransporteCRUD({ data }) {
     conteudo: ["id", "nome", "criado", "icone"],
   };
   return (
-    <div>
+    <div style={{ margin: "8px" }}>
       {show && (
         <PopUpModal
           fechar={setShow}
