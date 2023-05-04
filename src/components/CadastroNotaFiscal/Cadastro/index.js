@@ -12,8 +12,6 @@ export default function CadastrarNotaFiscal({ objetoInput }) {
   const [notaParcial, setNotaParcial] = useState(null);
   const [materiaisNaoCadastrados, setMateriaisNaoCadastrados] = useState([]);
 
-  //console.log(objetoInput);
-
   async function cadastrarNotaFiscal() {
     setOpen(true);
     if (objetoInput?.status_nf === "Devolução Parcial") {

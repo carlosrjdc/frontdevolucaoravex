@@ -24,6 +24,17 @@ export default function CadastroNotaFiscal() {
     content: () => componentRef.current,
   });
 
+  console.log(
+    helpers
+      .converterArraydeProdutosParaInput(
+        notaSelecionada?.itens,
+        infoDemanda?.id,
+        notaSelecionada?.numeroNotaFiscal,
+        notaSelecionada?.statusdevolucao
+      )
+      .filter((item) => item !== undefined)
+  );
+
   const objetoInput = {
     idDemanda: infoDemanda.id,
     status_nf: notaSelecionada.statusdevolucao,
@@ -32,12 +43,14 @@ export default function CadastroNotaFiscal() {
     motivodevolucao: notaSelecionada?.motivo?.descricao,
     transporte: infoViagem?.identificador,
     id_viagem: infoViagem?.id,
-    produtos: helpers.converterArraydeProdutosParaInput(
-      notaSelecionada?.itens,
-      infoDemanda?.id,
-      notaSelecionada?.numeroNotaFiscal,
-      notaSelecionada?.statusdevolucao
-    ),
+    produtos: helpers
+      .converterArraydeProdutosParaInput(
+        notaSelecionada?.itens,
+        infoDemanda?.id,
+        notaSelecionada?.numeroNotaFiscal,
+        notaSelecionada?.statusdevolucao
+      )
+      .filter((item) => item !== undefined),
   };
 
   return (

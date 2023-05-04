@@ -23,15 +23,17 @@ const helpers = {
 
   converterArraydeProdutosParaInput: (arr, idDemanda, notaSelecionada, numRetorno) => {
     const novoArray = arr?.map((item) => {
-      return {
-        idDemanda: idDemanda,
-        nota_fiscal: notaSelecionada,
-        motivo: numRetorno,
-        produto: item.codigo,
-        quantidade: item.quantidadeDevolvida,
-      };
+      if (item.motivo !== null) {
+        return {
+          idDemanda: idDemanda,
+          nota_fiscal: notaSelecionada,
+          motivo: numRetorno,
+          produto: item.codigo,
+          quantidade: item.quantidadeDevolvida,
+        };
+      }
     });
-    return novoArray;
+    return novoArray.filter((filtrar) => filtrar !== undefined);
   },
 };
 
