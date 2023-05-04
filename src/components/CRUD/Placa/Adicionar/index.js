@@ -8,6 +8,7 @@ import { GlobalContext } from "../../../../context";
 import CadastroFunctionarioTransportadora from "../FormCadastro";
 import PlacasService from "../../../../services/placasService";
 import CadastroPlaca from "../FormCadastro";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function AdicionarPlacaCRUD({ buscar, setBuscar }) {
   const [show, setShow] = useState(false);
@@ -25,7 +26,13 @@ export default function AdicionarPlacaCRUD({ buscar, setBuscar }) {
   async function cadastrarNovaPlaca() {
     setOpen(true);
     if (placa.length > 2) {
-      await PlacasService.cadastrarPlaca(placa, perfil, idTransportadora);
+      await PlacasService.cadastrarPlaca(placa, perfil, idTransportadora)
+        .then(() => {
+          Notificar("Sucesso", "Placa Adicionada com sucesso!!", "success", "bottom");
+        })
+        .catch((erro) => {
+          Notificar("Error", "Placa não cadastrada, contate o Administrador", "danger", "bottom");
+        });
       setOpen(false);
     }
     setOpen(false);
@@ -45,9 +52,7 @@ export default function AdicionarPlacaCRUD({ buscar, setBuscar }) {
         <PopUpModal
           fechar={setShow}
           titulo="Opa"
-          disabilitar={
-            idTransportadora.length < 1 || placa.length < 3 || perfil.length < 3
-          }
+          disabilitar={idTransportadora.length < 1 || placa.length < 3 || perfil.length < 3}
           corpo={
             <CadastroPlaca
               perfil={perfil}
@@ -73,8 +78,7 @@ export default function AdicionarPlacaCRUD({ buscar, setBuscar }) {
             alignItems: "center",
           }}
         >
-          <IoMdAddCircle onClick={() => AbrirModal()} color="green" size={35} />{" "}
-          Novo
+          <IoMdAddCircle onClick={() => AbrirModal()} color="green" size={35} /> Novo
         </div>
       </div>
     </div>

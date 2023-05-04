@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import PopUpModal from "../../../Global/PopUpModal";
 import { GlobalContext } from "../../../../context";
 import funcionariotransportadoraservice from "../../../../services/funcionariotransportadoraservice";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function TabelaFunctionarioTransportadoraCRUD({ data }) {
   const { setOpen } = useContext(GlobalContext);
@@ -28,7 +29,14 @@ export default function TabelaFunctionarioTransportadoraCRUD({ data }) {
 
   async function deletarRegistro() {
     setOpen(true);
-    await funcionariotransportadoraservice.deletarRegistro(idDelete);
+    await funcionariotransportadoraservice
+      .deletarRegistro(idDelete)
+      .then(() => {
+        Notificar("Sucesso", "Usuario Deletado com sucesso!!", "success", "bottom");
+      })
+      .catch((erro) => {
+        Notificar("Error", "Registro não deletado, contate o Administrador", "danger", "bottom");
+      });
     setShow(false);
     setOpen(false);
   }

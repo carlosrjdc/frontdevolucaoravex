@@ -7,12 +7,6 @@ const transportadoraService = {
       nome,
     })
       .then((response) => {
-        Notificar(
-          "Sucesso",
-          "Transportadora cadastrada com sucesso!",
-          "success",
-          "bottom"
-        );
         return response.data;
       })
       .catch((erro) => console.log(erro));

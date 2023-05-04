@@ -5,6 +5,7 @@ import PopUpModal from "../../../Global/PopUpModal";
 import { GlobalContext } from "../../../../context";
 import CadastroFunctionarioTransportadora from "../FormCadastro";
 import funcionariotransportadoraservice from "../../../../services/funcionariotransportadoraservice";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function AdicionarFunctionarioTransportadoraCRUD({ buscar, setBuscar }) {
   const [show, setShow] = useState(false);
@@ -21,7 +22,14 @@ export default function AdicionarFunctionarioTransportadoraCRUD({ buscar, setBus
   async function cadastrarTransportadora() {
     setOpen(true);
     if (nome.length > 2) {
-      await funcionariotransportadoraservice.cadastrarFuncionario(nome, email, idTransportadora);
+      await funcionariotransportadoraservice
+        .cadastrarFuncionario(nome, email, idTransportadora)
+        .then(() => {
+          Notificar("Sucesso", "Funcionário Adicionado com sucesso!!", "success", "bottom");
+        })
+        .catch((erro) => {
+          Notificar("Error", "Registro não adicionado, contate o Administrador", "danger", "bottom");
+        });
       setOpen(false);
     }
     setOpen(false);

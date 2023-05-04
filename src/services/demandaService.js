@@ -16,15 +16,12 @@ const demandaService = {
   },
 
   finalizarDemandaAdm: async (idDemanda) => {
-    const dados = await Axios.put(`/finalizardemandaemail/${idDemanda}`).then(() => {
-      Notificar("Sucesso", `Demanda ${idDemanda} finalizada com sucesso.`, "success", "bottom");
-    });
+    const dados = await Axios.put(`/finalizardemandaemail/${idDemanda}`).then(() => {});
   },
 
   deletarRegistro: async (idDemanda, idNota) => {
     const dados = await Axios.delete(`/deletarnota/${idDemanda}/${idNota}`)
       .then(() => {
-        Notificar("Sucesso", "Registro Deletado com Sucesso", "success", "bottom");
         return "deletado";
       })
       .catch((erro) => {

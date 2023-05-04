@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import PopUpModal from "../../../Global/PopUpModal";
 import { GlobalContext } from "../../../../context";
 import transportadoraService from "../../../../services/transportadoraService";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function TabelaTransporteCRUD({ data }) {
   const { open, setOpen } = useContext(GlobalContext);
@@ -16,23 +17,27 @@ export default function TabelaTransporteCRUD({ data }) {
     data[i].icone = (
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <AiOutlineEdit size={18} color="orange" style={{ cursor: "pointer" }} />
-        <BsTrash
-          onClick={() => abrirModal(data[i].id)}
-          size={18}
-          color="red"
-          style={{ cursor: "pointer" }}
-        />
+        <BsTrash onClick={() => abrirModal(data[i].id)} size={18} color="red" style={{ cursor: "pointer" }} />
       </div>
     );
-    data[i].criado =
-      data[i].createdAt === undefined
-        ? ""
-        : moment(data[i].createdAt).format("DD/MM/YYYY HH:mm:ss");
+    data[i].criado = data[i].createdAt === undefined ? "" : moment(data[i].createdAt).format("DD/MM/YYYY HH:mm:ss");
   }
 
   async function deletarRegistro() {
     setOpen(true);
-    await transportadoraService.deletarRegistro(idDelete);
+    await transportadoraService
+      .deletarRegistro(idDelete)
+      .then((response) => {
+        Notificar("Sucesso", "Transportadora Deletada com sucesso!", "success", "bottom");
+      })
+      .catch((erro) => {
+        Notificar(
+          "Error",
+          "Não foi possivel deletar transportadora, 'Caso tenha alguma registro de placa ou email para essa transportadora não é possivel fazer a exclusão primiero exclua a placa e os usuarios'",
+          "danger",
+          "bottom"
+        );
+      });
     setShow(false);
     setOpen(false);
   }

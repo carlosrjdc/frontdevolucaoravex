@@ -5,6 +5,7 @@ import CadastroTransportadora from "../FormCadastro";
 import PopUpModal from "../../../Global/PopUpModal";
 import { GlobalContext } from "../../../../context";
 import transportadoraService from "../../../../services/transportadoraService";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function AdicionarTransportadoraCRUD() {
   const [buscar, setBuscar] = useState("");
@@ -19,7 +20,14 @@ export default function AdicionarTransportadoraCRUD() {
   async function cadastrarTransportadora() {
     setOpen(true);
     if (nome.length > 2) {
-      await transportadoraService.cadastrarTransportadora(nome);
+      await transportadoraService
+        .cadastrarTransportadora(nome)
+        .then(() => {
+          Notificar("Sucesso", "Cadastro Realizado com sucesso!", "success", "bottom");
+        })
+        .catch((erro) => {
+          Notificar("Error", "Cadastrao não realizado", "danger", "bottom");
+        });
       setOpen(false);
     }
     setOpen(false);
@@ -53,8 +61,7 @@ export default function AdicionarTransportadoraCRUD() {
             alignItems: "center",
           }}
         >
-          <IoMdAddCircle onClick={() => AbrirModal()} color="green" size={35} />{" "}
-          Novo
+          <IoMdAddCircle onClick={() => AbrirModal()} color="green" size={35} /> Novo
         </div>
       </div>
     </div>

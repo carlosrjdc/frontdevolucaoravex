@@ -8,6 +8,7 @@ import PopUpModal from "../../../Global/PopUpModal";
 import { GlobalContext } from "../../../../context";
 import funcionariotransportadoraservice from "../../../../services/funcionariotransportadoraservice";
 import PlacasService from "../../../../services/placasService";
+import Notificar from "../../../Global/FeedBack/Notificar";
 
 export default function TabelaPlacaCRUD({ data }) {
   const { open, setOpen } = useContext(GlobalContext);
@@ -19,23 +20,21 @@ export default function TabelaPlacaCRUD({ data }) {
     data[i].icone = (
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <AiOutlineEdit size={18} color="orange" style={{ cursor: "pointer" }} />
-        <BsTrash
-          onClick={() => abrirModal(data[i].id)}
-          size={18}
-          color="red"
-          style={{ cursor: "pointer" }}
-        />
+        <BsTrash onClick={() => abrirModal(data[i].id)} size={18} color="red" style={{ cursor: "pointer" }} />
       </div>
     );
-    data[i].criado =
-      data[i].createdAt === undefined
-        ? ""
-        : moment(data[i].createdAt).format("DD/MM/YYYY HH:mm:ss");
+    data[i].criado = data[i].createdAt === undefined ? "" : moment(data[i].createdAt).format("DD/MM/YYYY HH:mm:ss");
   }
 
   async function deletarRegistro() {
     setOpen(true);
-    await PlacasService.deletarRegistro(idDelete);
+    await PlacasService.deletarRegistro(idDelete)
+      .then(() => {
+        Notificar("Sucesso", "Placa Deletada com sucesso!!", "success", "bottom");
+      })
+      .catch((erro) => {
+        Notificar("Error", "Registro não deletado, contate o Administrador", "danger", "bottom");
+      });
     setShow(false);
     setOpen(false);
   }

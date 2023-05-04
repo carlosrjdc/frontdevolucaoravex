@@ -9,12 +9,6 @@ const PlacasService = {
       idTransportadora,
     })
       .then((response) => {
-        Notificar(
-          "Sucesso",
-          "Placa cadastrada com sucesso!",
-          "success",
-          "bottom"
-        );
         return response.data;
       })
       .catch((erro) => console.log(erro));

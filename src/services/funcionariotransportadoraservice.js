@@ -3,22 +3,13 @@ import Axios from "../config";
 
 const funcionariotransportadoraservice = {
   cadastrarFuncionario: async (nome, email, idTransportadora) => {
-    const dados = await Axios.post(
-      `/transporte/cadastrarfuncionariotransportadora`,
-      {
-        nome,
-        email,
-        receberEmail: "sim",
-        idTransportadora,
-      }
-    )
+    const dados = await Axios.post(`/transporte/cadastrarfuncionariotransportadora`, {
+      nome,
+      email,
+      receberEmail: "sim",
+      idTransportadora,
+    })
       .then((response) => {
-        Notificar(
-          "Sucesso",
-          "Transportadora cadastrada com sucesso!",
-          "success",
-          "bottom"
-        );
         return response.data;
       })
       .catch((erro) => console.log(erro));
