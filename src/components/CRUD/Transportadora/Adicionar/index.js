@@ -32,6 +32,7 @@ export default function AdicionarTransportadoraCRUD() {
     }
     setOpen(false);
     setShow(false);
+    setNome("");
   }
 
   return (

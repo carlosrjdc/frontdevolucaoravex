@@ -37,6 +37,9 @@ export default function AdicionarPlacaCRUD({ buscar, setBuscar }) {
     }
     setOpen(false);
     setShow(false);
+    setNome("");
+    setPlaca("");
+    setPerfil("");
   }
 
   return (

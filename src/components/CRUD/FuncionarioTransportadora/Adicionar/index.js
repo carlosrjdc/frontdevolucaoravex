@@ -34,6 +34,8 @@ export default function AdicionarFunctionarioTransportadoraCRUD({ buscar, setBus
     }
     setOpen(false);
     setShow(false);
+    setNome("");
+    setEmail("");
   }
 
   function validarEmail(email) {
