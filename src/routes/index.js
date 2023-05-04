@@ -9,6 +9,7 @@ import TransportadoraCRUD from "../Pages/CRUD/Transportadora";
 import FuncionarioTransportadoraCRUD from "../Pages/CRUD/UsuariosTransportadora";
 import PlacaCRUD from "../Pages/CRUD/Placa";
 import RelatorioDivergencia from "../Pages/Relatorios/Divergencia";
+import CadastroDeProduto from "../Pages/CadastroProduto";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/divergencia",
     element: <RelatorioDivergencia />,
+  },
+  {
+    path: "/cadastroproduto",
+    element: <CadastroDeProduto />,
   },
 ]);
 

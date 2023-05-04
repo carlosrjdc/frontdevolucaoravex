@@ -17,6 +17,7 @@ export const menus = {
       { nome: "Transportadora", link: "/transportadora" },
       { nome: "Placas", link: "/placa" },
       { nome: "Funcionários", link: "/funcionariotransportadora" },
+      { nome: "Produto", link: "/cadastroproduto" },
     ],
   },
   Relatorios: {
