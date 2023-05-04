@@ -8,12 +8,7 @@ import { GlobalContext } from "../../../context";
 import { Troubleshoot } from "@mui/icons-material";
 import transportadoraService from "../../../services/placasService";
 
-export default function Finalizar({
-  setResultadoDemanda,
-  setInfoDemanda,
-  infoDemanda,
-  imprimir,
-}) {
+export default function Finalizar({ setResultadoDemanda, setInfoDemanda, infoDemanda, imprimir }) {
   const [idDemanda, setIdDemanda] = useState("");
   const [show, setShow] = useState(false);
   const { open, setOpen } = useContext(GlobalContext);
@@ -34,14 +29,8 @@ export default function Finalizar({
   async function finalizarDemanda() {
     setOpen(true);
     await demandaService.finalizarDemandaAdm(idDemanda).then(() => {});
-    const infoplaca = await transportadoraService.buscarTransportadoraporPlaca(
-      infoDemanda.placa
-    );
-    await demandaService
-      .enviarEmail(idDemanda, infoplaca.idTransportadora, infoplaca.placa)
-      .then(() => {
-        setOpen(false);
-      });
+    const infoplaca = await transportadoraService.buscarTransportadoraporPlaca(infoDemanda.placa);
+
     imprimir();
   }
 
@@ -79,12 +68,7 @@ export default function Finalizar({
             textAlign: "center",
           }}
         >
-          <Pesquisa
-            acao={carregarResultadoDemanda}
-            valor={idDemanda}
-            setar={setIdDemanda}
-            label="ID DEMANDA"
-          />
+          <Pesquisa acao={carregarResultadoDemanda} valor={idDemanda} setar={setIdDemanda} label="ID DEMANDA" />
         </div>
       </div>
       <div
@@ -95,18 +79,10 @@ export default function Finalizar({
         }}
       >
         <div>
-          <AiFillPrinter
-            onClick={imprimirDemanda}
-            style={{ cursor: "pointer" }}
-            size={30}
-          />
+          <AiFillPrinter onClick={imprimirDemanda} style={{ cursor: "pointer" }} size={30} />
         </div>
         <div>
-          <FaFlagCheckered
-            style={{ cursor: "pointer" }}
-            onClick={() => setShow(true)}
-            size={30}
-          />
+          <FaFlagCheckered style={{ cursor: "pointer" }} onClick={() => setShow(true)} size={30} />
         </div>
       </div>
     </div>
