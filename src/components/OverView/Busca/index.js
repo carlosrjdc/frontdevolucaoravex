@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import demandaService from "../../../services/demandaService";
 import Pesquisa from "../../Global/Busca";
 import { GlobalContext } from "../../../context";
 import moment from "moment-timezone";
 
 export default function BuscarOverView({ setDadosDemanda, setStatus }) {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const { setOpen } = useContext(GlobalContext);
 
   async function buscarDemandaPorData() {
@@ -14,6 +14,11 @@ export default function BuscarOverView({ setDadosDemanda, setStatus }) {
     await demandaService.statusPorData(moment(data).format("YYYY-MM-DD")).then((response) => setStatus(response));
     setOpen(false);
   }
+
+  useEffect(() => {
+    buscarDemandaPorData();
+  }, []);
+
   return (
     <div
       style={{
