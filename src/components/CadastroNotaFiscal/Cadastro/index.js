@@ -111,7 +111,7 @@ export default function CadastrarNotaFiscal({ objetoInput }) {
                 setNotaParcial("");
                 setShow(false);
               }}
-              disabilitar={notaParcial.length < 2}
+              disabilitar={notaParcial?.length < 2}
             />
           )
         : show && (
