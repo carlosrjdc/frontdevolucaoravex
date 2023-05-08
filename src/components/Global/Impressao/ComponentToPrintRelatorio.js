@@ -3,7 +3,7 @@ import TabelaResultadoConferencia from "../../FinalizarDemanda/Tabela";
 import InformacoesFinalizarDemanda from "../../FinalizarDemanda/Informacoes";
 
 export const ComponentToPrintRelatorio = React.forwardRef((props, ref) => {
-  const { info, data, datadois } = props;
+  const { info, data, datadois, relacaoNotas } = props;
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ export const ComponentToPrintRelatorio = React.forwardRef((props, ref) => {
       }}
       ref={ref}
     >
-      <InformacoesFinalizarDemanda data={data} />
+      <InformacoesFinalizarDemanda relacaoNotas={relacaoNotas} data={data} />
       <TabelaResultadoConferencia data={datadois} />
     </div>
   );

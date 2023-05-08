@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 
-export default function InformacoesFinalizarDemanda({ data }) {
+export default function InformacoesFinalizarDemanda({ data, relacaoNotas }) {
   return (
     <div
       style={{
@@ -31,6 +31,14 @@ export default function InformacoesFinalizarDemanda({ data }) {
           fontSize: "12px",
         }}
       >
+        <div>
+          <div>
+            Relação de Notas:{" "}
+            {relacaoNotas.map((item) => (
+              <div>{item.nota_fiscal}</div>
+            ))}
+          </div>
+        </div>
         <div>
           <div>Placa: {data?.placa}</div>
           <div>Transportadora: {data?.transportadora}</div>

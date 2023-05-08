@@ -7,9 +7,11 @@ import PopUpModal from "../../Global/PopUpModal";
 import { GlobalContext } from "../../../context";
 import { Troubleshoot } from "@mui/icons-material";
 import transportadoraService from "../../../services/placasService";
+import notaFiscalService from "../../../services/notaFiscalService";
 
-export default function Finalizar({ setResultadoDemanda, setInfoDemanda, infoDemanda, imprimir }) {
+export default function Finalizar({ setResultadoDemanda, setInfoDemanda, infoDemanda, imprimir, setRelacaoNotas }) {
   const [idDemanda, setIdDemanda] = useState("");
+
   const [show, setShow] = useState(false);
   const { open, setOpen } = useContext(GlobalContext);
 
@@ -17,11 +19,14 @@ export default function Finalizar({ setResultadoDemanda, setInfoDemanda, infoDem
     setOpen(true);
     await demandaService.resultadoConferencia(idDemanda).then((response) => {
       setResultadoDemanda(response);
-      setOpen(false);
     });
 
     await demandaService.buscarInfoDemanda(idDemanda).then((responsta) => {
       setInfoDemanda(responsta);
+    });
+
+    await notaFiscalService.NotaPorDemanda(idDemanda).then((resposta) => {
+      setRelacaoNotas(resposta);
       setOpen(false);
     });
   }

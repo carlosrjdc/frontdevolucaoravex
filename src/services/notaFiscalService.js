@@ -13,6 +13,14 @@ const notaFiscalService = {
     return dados;
   },
 
+  NotaPorDemanda: async (id) => {
+    return await Axios.get(`/listarnotaspordemanda/${id}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((erro) => console.log(erro));
+  },
+
   CadastrarNotaFiscal: (infocadastro) => {
     const dados = Axios.post(`/cadastrarnotafiscal`, infocadastro)
       .then((response) => {

@@ -10,6 +10,12 @@ import { ComponentToPrintRelatorio } from "../../components/Global/Impressao/Com
 export default function FinalizarDemanda() {
   const [resultadoDemanda, setResultadoDemanda] = useState([]);
   const [infoDemanda, setInfoDemanda] = useState([]);
+  const [relacaoNotas, setRelacaoNotas] = useState([]);
+
+  //    await notaFiscalService.NotaPorDemanda(idDemanda).then((responsta) => {
+  //  setRelacaoNotas(responsta);
+  //  setOpen(false);
+  //});
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -21,6 +27,7 @@ export default function FinalizarDemanda() {
       <SideBarMenu />
       <div style={{ display: "none" }}>
         <ComponentToPrintRelatorio
+          relacaoNotas={relacaoNotas}
           data={infoDemanda}
           datadois={resultadoDemanda}
           ref={componentRef}
@@ -28,13 +35,15 @@ export default function FinalizarDemanda() {
       </div>
       <div style={{ width: "100%" }}>
         <Titulo titulo="Finalizar Demanda" />
+        <div>Imprimir</div>
         <Finalizar
+          setRelacaoNotas={setRelacaoNotas}
           setInfoDemanda={setInfoDemanda}
           setResultadoDemanda={setResultadoDemanda}
           infoDemanda={infoDemanda}
           imprimir={handlePrint}
         />
-        <InformacoesFinalizarDemanda data={infoDemanda} />
+        <InformacoesFinalizarDemanda relacaoNotas={relacaoNotas} data={infoDemanda} />
         <TabelaResultadoConferencia data={resultadoDemanda} />
       </div>
     </div>
