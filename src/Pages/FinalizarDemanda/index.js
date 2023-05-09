@@ -35,7 +35,7 @@ export default function FinalizarDemanda() {
       </div>
       <div style={{ width: "100%" }}>
         <Titulo titulo="Finalizar Demanda" />
-        <div>Imprimir</div>
+
         <Finalizar
           setRelacaoNotas={setRelacaoNotas}
           setInfoDemanda={setInfoDemanda}
