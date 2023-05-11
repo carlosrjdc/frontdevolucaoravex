@@ -19,6 +19,24 @@ const demandaService = {
     const dados = await Axios.put(`/finalizardemandaemail/${idDemanda}`).then(() => {});
   },
 
+  deletarDemanda: async (idDemanda) => {
+    const dados = await Axios.delete(`/deletardemanda/${idDemanda}`)
+      .then(() => {
+        Notificar("Sucesso", "Demanda Deletada com sucesso", "success", "bottom");
+        return "deletado";
+      })
+      .catch((erro) => {
+        Notificar(
+          "Error",
+          `Registro não deletado, se houve notas ou iniciado conferencia não é possivel excluir`,
+          "danger",
+          "bottom"
+        );
+        console.log(erro);
+      });
+    return dados;
+  },
+
   deletarRegistro: async (idDemanda, idNota) => {
     const dados = await Axios.delete(`/deletarnota/${idDemanda}/${idNota}`)
       .then(() => {

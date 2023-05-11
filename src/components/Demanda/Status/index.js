@@ -1,6 +1,8 @@
-import Tooltip from "@mui/material/Tooltip";
+
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { AiOutlineFolderOpen } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PopUpModal from "../../Global/PopUpModal";
@@ -8,6 +10,7 @@ import demandaService from "../../../services/demandaService";
 
 export default function InfoDemanda({ status, idViagem, setOpen, setInfoDemanda }) {
   const [show, setShow] = useState(false);
+  const [abrir, setAbrir] = useState(false);
   const navigate = useNavigate();
 
   async function reabrirDemanda() {
@@ -28,6 +31,18 @@ export default function InfoDemanda({ status, idViagem, setOpen, setInfoDemanda 
       });
   }
 
+  async function deletarDemanda(){
+    await demandaService.deletarDemanda(idViagem)
+    .then(() => {
+          setOpen(false);
+          setAbrir(false);
+      })
+      .catch((erro) => {
+        setOpen(false);
+        setAbrir(false);
+      })
+  }
+
   return (
     <div
       style={{
@@ -45,6 +60,14 @@ export default function InfoDemanda({ status, idViagem, setOpen, setInfoDemanda 
           titulo={`Reabertura da Demanda - ${idViagem === undefined ? "" : idViagem}`}
           corpo="Deseja realmente confirmar a essa ação?"
           fechar={() => setShow(false)}
+        />
+      )}
+        {abrir && (
+        <PopUpModal
+          confirmar={deletarDemanda}
+          titulo={`Excluir Demanda - ${idViagem === undefined ? "" : idViagem}`}
+          corpo="OBS: para excluir a demanda primeiro é necessarios excluir todas as Notas, Deseja realmente confirmar a essa ação?"
+          fechar={() => setAbrir(false)}
         />
       )}
       <div
@@ -67,13 +90,14 @@ export default function InfoDemanda({ status, idViagem, setOpen, setInfoDemanda 
         }}
       >
         <div style={{ fontWeight: "600", fontSize: "20px" }}>ID: {idViagem}</div>
-        <div style={{ display: "flex" }}>
-          <HiOutlineDocumentAdd
-            onClick={() => navigate("/cadastronota")}
-            style={{ marginRight: "32px", cursor: "pointer" }}
-            size={20}
-          />
-          <Tooltip title="Reabrir Demanda">
+        <div style={{ display: "flex", justifyContent:"space-between" }}>
+          <div>
+              <HiOutlineDocumentAdd
+                onClick={() => navigate("/cadastronota")}
+                style={{ marginRight: "32px", cursor: "pointer" }}
+                size={20}
+              />
+            </div>
             <div>
               <AiOutlineFolderOpen
                 onClick={() => {
@@ -83,7 +107,15 @@ export default function InfoDemanda({ status, idViagem, setOpen, setInfoDemanda 
                 size={20}
               />
             </div>
-          </Tooltip>
+            <div>
+              <BsTrash
+                onClick={() => {
+                  setAbrir(true);
+                }}
+                style={{ cursor: "pointer" }}
+                size={20}
+              />
+            </div>
         </div>
       </div>
     </div>
