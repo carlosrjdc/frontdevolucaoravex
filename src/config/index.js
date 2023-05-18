@@ -8,6 +8,7 @@ const Axios = axios.create({
   headers: { "X-Custom-Header": "foobar" },
 });
 
+
 Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 export default Axios;
